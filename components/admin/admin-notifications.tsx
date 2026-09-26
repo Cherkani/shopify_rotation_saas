@@ -1,0 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+import Link from "next/link";
+import { AlertTriangle, BellRing, ExternalLink, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+type GroupAlert = { groupId: string; groupName: string; stores: string[] };
+
+export function AdminNotifications({ alerts }: { alerts: GroupAlert[] }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  return <><Button type="button" variant="ghost" size="icon" className="relative text-[#aaa196] hover:text-[#f5f0e8]" aria-label={alerts.length ? `${alerts.length} configuration alerts` : "Notifications"} onClick={() => ref.current?.showModal()}><BellRing className="size-4" />{alerts.length ? <span className="absolute right-1 top-1 size-2 rounded-full bg-red-400 ring-2 ring-[#161411]" aria-hidden="true" /> : null}</Button><dialog ref={ref} className="ops-dialog w-[min(94vw,34rem)] border border-white/15 bg-[#201d18] p-0 text-[#f5f0e8] shadow-2xl backdrop:bg-black/70"><div className="border-b border-white/10 px-5 py-4"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.18em] text-[#f2c96d]">Operations alerts</p><h2 className="mt-1 font-serif text-2xl">Configuration needs attention</h2><p className="mt-2 text-sm leading-5 text-[#aaa196]">Groups with incomplete stores cannot receive routed traffic.</p></div><Button type="button" variant="ghost" size="icon" aria-label="Close notifications" onClick={() => ref.current?.close()}><X /></Button></div></div><div className="space-y-3 p-5">{alerts.length ? alerts.map((alert) => <div key={alert.groupId} className="rounded-lg border border-red-400/25 bg-red-400/10 p-4"><div className="flex items-start gap-3"><AlertTriangle className="mt-0.5 size-4 shrink-0 text-red-300" /><div className="min-w-0 flex-1"><p className="font-medium text-red-50">{alert.groupName}</p><p className="mt-1 text-sm leading-5 text-red-100/75">{alert.stores.length} store{alert.stores.length === 1 ? " is" : "s are"} missing a Shopify webhook key.</p><p className="mt-2 text-xs text-red-100/60">{alert.stores.join(", ")}</p></div></div></div>) : <div className="rounded-lg border border-emerald-300/20 bg-emerald-300/10 p-4 text-sm text-emerald-100">Everything is configured. No group is waiting on a webhook key.</div>}<div className="flex justify-end gap-2 pt-2"><Button asChild variant="outline"><Link href="/admin/stores" onClick={() => ref.current?.close()}>Open stores <ExternalLink /></Link></Button><Button type="button" variant="ghost" onClick={() => ref.current?.close()}>Close</Button></div></div></dialog></>;
+}

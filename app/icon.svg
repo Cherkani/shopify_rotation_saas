@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TargetFlow">
+  <rect width="64" height="64" rx="16" fill="#161411"/>
+  <path d="M14 20h36M18 28h28M22 36h20M27 44h10" stroke="#f2c96d" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="49" cy="20" r="5" fill="#86efac"/>
+</svg>

@@ -1,0 +1,3 @@
+-- Intentionally empty. A reset must start without sample stores, products,
+-- groups, webhook secrets, sales, or administrator credentials.
+-- Configure the first administrator and store through your deployment setup.
